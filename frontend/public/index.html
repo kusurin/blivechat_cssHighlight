@@ -1,19 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!-- 重要：如果带referer则获取头像时会403 -->
-    <meta name="referrer" content="no-referrer">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>blivechat</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but blivechat doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <!-- 重要：如果带referer则获取头像时会403 -->
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>blivechat</title>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css" rel="stylesheet">
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/show-hint.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/css-hint.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/show-hint.min.css" rel="stylesheet">
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/search.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/searchcursor.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/jump-to-line.min.js"></script>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but blivechat doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script>
+    window.onload = function () {
+      var timer_out;
+
+      function detect() {
+        timer_out = setTimeout(detect, 1000);
+        if (document.getElementById('example-container') != undefined) {
+          clearTimeout(timer_out);
+          setTimeout(run_highlight, 1000);
+        }
+      }
+
+      detect();
+
+      function run_highlight() {
+        var oristyle = document.head.getElementsByTagName('style')[0];
+        oristyle.remove();
+
+        var head = document.getElementsByTagName('head')[0];
+        // 建立新style
+        var edit_style = document.createElement('style');
+        edit_style.id = 'editstyle';
+        head.appendChild(edit_style);
+        // 替换textarea
+        let inputbox = document.getElementsByTagName('textarea')[0];
+
+        window.editor = CodeMirror.fromTextArea(inputbox, {
+          mode: "text/css", //css
+          lineNumbers: true,
+          lineWrapping: true,
+          theme: 'darcula',
+          dragDrop: false,
+          indentUnit: 4
+        });
+        editor.setSize(null, '100%');
+        // 更新style
+        var newstyle;
+
+        var updateStyle = function () {
+          newstyle = editor.getValue();
+          edit_style.innerHTML = newstyle;
+        }
+
+        updateStyle();
+        // 延迟操作块执行
+        var timer;
+        document.onkeydown = function () {
+          clearTimeout(timer);
+          timer = setTimeout(updateStyle, 500);
+        }
+
+        editor.on("inputRead", function (instance) {
+          if (instance.state.completionActive) {
+            return;
+          }
+          var cur = instance.getCursor();
+          var token = instance.getTokenAt(cur);
+          if (token.type && token.type != "comment") {
+            CodeMirror.commands.autocomplete(instance);
+          }
+        })
+      }
+    }
+  </script>
+</body>
+
 </html>

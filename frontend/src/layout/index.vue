@@ -156,4 +156,81 @@ a, a:focus, a:hover {
 .version a {
   color: #409eff
 }
+
+.el-aside[style="width: 230px;"] {
+    width: 140px !important;
+}
+
+/* 修改布局 */
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-form>h3 {
+    display: none !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-tabs.el-tabs--top:has(#pane-general) {
+    display: none !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"] {
+    padding: 0 !important;
+    width: 650px !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-form>.el-card.is-never-shadow>.el-card__body {
+    padding-left: 5px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-right: 5px !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-form>.el-card.is-never-shadow>.el-card__body>.el-form-item.el-form-item--mini>.el-form-item__label[style="width: 150px;"] {
+    text-align: left !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-form>.el-card.is-never-shadow>.el-card__body>.el-form-item.el-form-item--mini>.el-form-item__content[style="margin-left: 150px;"] {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-form>.el-card.is-never-shadow>.el-card__body>.el-form-item.el-form-item--mini>.el-form-item__content[style="margin-left: 150px;"]>.el-textarea {
+    height: 850px !important;
+}
+
+main>.el-row[style="margin-left: -10px; margin-right: -10px;"]>.el-col[style="padding-left: 10px; padding-right: 10px;"]>.el-form>.el-card.is-never-shadow>.el-card__body>.el-form-item.el-form-item--mini>.el-form-item__content[style="margin-left: 150px;"]>.el-textarea>.el-textarea__inner {
+    height: 100%;
+    font-size: 15px !important;
+    font-family: Consolas !important;
+}
+
+.el-card__body>.el-form-item+.el-form-item:has(.el-form-item__content[style="margin-left: 150px;"]) {
+    display: none !important;
+}
+
+/* 修改高亮样式 */
+.CodeMirror {
+    font-size: 135%;
+    line-height: 135%;
+}
+
+.CodeMirror-linenumber.CodeMirror-gutter-elt {
+    font-size: 12px;
+    padding-top: 2px;
+}
+
+
+.cm-s-darcula span.cm-tag {
+    text-decoration: none !important;
+}
+
+.cm-s-darcula span.cm-comment {
+    color: aqua;
+    font-style: normal;
+}
+
+.CodeMirror-hints.darcula {
+    background-color: #fff !important;
+}
+
+.CodeMirror-hints.darcula .CodeMirror-hint-active {
+    color: #fff !important;
+}
 </style>
